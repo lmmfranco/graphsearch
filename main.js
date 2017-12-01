@@ -13,9 +13,9 @@ const ICONE_PADRAO = {
 const CORES = [
     "#75ceff",
     "#75ffc3",
+    "#b075ff",
     "#caff75",
     "#ff8275",
-    "#b075ff",
     "#ff75ba"
 ]
 
@@ -105,6 +105,7 @@ function resetGrafo() {
     grafo.vertices.forEach(function(v) {
         v.marcado = false;
         v.marcador.setIcon(ICONE_PADRAO);
+        delete v.cor;
     });
 }
 
@@ -127,8 +128,7 @@ function pintaVertice(vertice) {
 
     setTimeout(function() {
         vertice.marcador.icon.fillColor = CORES[vertice.cor];
-        vertice.marcador.setMap(null);
-        vertice.marcador.setMap(map);
+        vertice.marcador.setIcon(_.clone(vertice.marcador.icon));
     }, timer)
 
     timer += 100;

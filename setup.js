@@ -63,7 +63,7 @@ const estados = [
         uf: 'GO',
         estado: 'Goiás',
         capital: 'Goiânia',
-        adjacencias: ['TO', 'BA', 'MG', 'MS', 'MT']
+        adjacencias: ['TO', 'BA', 'MG', 'MS', 'MT', "DF"]
     },
     {
         uf: 'MA',
