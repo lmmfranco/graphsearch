@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Busca em Grafos - Luiz Franco</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/lodash"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgMd02kISAZOkuPA7lUh6ZuGCVNxWMvZ8&libraries=places"></script>
+    <style>
+        * {
+            font-size: 100%;
+            font-family: Arial;
+        }
+        header {
+            padding: 10px 15px 10px 15px;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin: 0;
+        }
+        .map-container {
+            display: flex;
+            flex-grow: 1;
+            background-color: #eee;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Teoria dos Grafos - Busca e cololoração sequencial</h2>
+        <small>Luiz Franco - lmmfranco@gmail.com</small>
+        <div style="float: right">
+            <label for="estrategia">Estratégia de busca:</label>
+            <input type="radio" name="estrategia" value="0" checked>Busca em profundidade (DFS)
+            <input type="radio" name="estrategia" value="1">Busca em largura (BFS)
+        </div>
+    </header>
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

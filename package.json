@@ -1,0 +1,19 @@
+{
+  "name": "lmmfranco-graphsearch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "setup.js",
+  "scripts": {
+    "build": "node setup.js",
+    "start": "http-server -p 3000 -o"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/maps": "^0.4.5",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "http-server": "^0.10.0"
+  }
+}
