@@ -1,5 +1,6 @@
 const ESTRATEGIA_DFS = 0; 
 const ESTRATEGIA_BFS = 1;
+const INTERVALO_ANIM = 100;
 
 const ICONE_PADRAO = {
     path: google.maps.SymbolPath.CIRCLE,
@@ -100,8 +101,12 @@ function getVerticePorUF(uf) {
     return _.find(grafo.vertices, { uf: uf })
 }
 
+function getArestaEntreVerticeUf(vertice, uf) {
+    return _.find(grafo.arestas, { ufs: [vertice.uf, uf].sort() });
+}
+
 function resetGrafo() {
-    timer = 100;
+    timer = INTERVALO_ANIM;
     grafo.vertices.forEach(function(v) {
         v.marcado = false;
         v.marcador.setIcon(ICONE_PADRAO);
@@ -131,23 +136,39 @@ function pintaVertice(vertice) {
         vertice.marcador.setIcon(_.clone(vertice.marcador.icon));
     }, timer)
 
-    timer += 100;
+    timer += INTERVALO_ANIM;
+}
+
+function pintaAresta(aresta) {
+    if(aresta) {
+        setTimeout(function() {
+            aresta.polyline.setOptions({strokeColor: "red"});
+        }, timer - INTERVALO_ANIM);
+    
+        setTimeout(function() {
+            aresta.polyline.setOptions({strokeColor: "black"});
+        }, timer);
+    }
 }
 
 function pesquisaProfundidade(raiz) {
     const pilha = [];
+    const pilhaArestas = [];
 
     pilha.push(raiz);
 
     while (pilha.length > 0) {
         const vertice = pilha.pop();
+        const aresta = pilhaArestas.pop();
 
         if (!vertice.marcado) {
             vertice.marcado = true;
+            pintaAresta(aresta)
             pintaVertice(vertice);
 
             vertice.adjacencias.forEach(uf => {
                 pilha.push(getVerticePorUF(uf));
+                pilhaArestas.push(getArestaEntreVerticeUf(vertice, uf));
             });
         }
     }
@@ -168,18 +189,22 @@ function dfs(grafo, raiz) {
 
 function pesquisaLargura(raiz) {
     const fila = [];
+    const filaArestas = [];
 
     fila.push(raiz);
 
     while (fila.length > 0) {
         const vertice = fila.shift();
-
+        const aresta = filaArestas.shift();
+        
         if (!vertice.marcado) {
             vertice.marcado = true;
+            pintaAresta(aresta)
             pintaVertice(vertice);
-
+            
             vertice.adjacencias.forEach(uf => {
                 fila.push(getVerticePorUF(uf));
+                filaArestas.push(getArestaEntreVerticeUf(vertice, uf));
             });
         }
     }
